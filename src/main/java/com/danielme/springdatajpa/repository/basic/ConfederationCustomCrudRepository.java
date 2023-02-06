@@ -11,10 +11,6 @@ public interface ConfederationCustomCrudRepository extends Repository<Confederat
 
     boolean existsById(Long id);
 
-    Iterable<Confederation> findAll();
-
-    Iterable<Confederation> findAllById(Iterable<Long> ids);
-
     long count();
 
 }

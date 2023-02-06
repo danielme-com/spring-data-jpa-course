@@ -12,10 +12,6 @@ public interface ReadCommonRepository<T, ID> extends Repository<T, ID> {
 
     boolean existsById(ID id);
 
-    Iterable<T> findAll();
-
-    Iterable<T> findAllById(Iterable<ID> ids);
-
     long count();
 
 }
