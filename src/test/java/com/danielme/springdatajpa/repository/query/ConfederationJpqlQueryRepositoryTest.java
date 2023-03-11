@@ -93,7 +93,7 @@ class ConfederationJpqlQueryRepositoryTest {
                         tuple.get("id", Long.class),
                         tuple.get("name", String.class),
                         tuple.get("countries", Long.class)))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Test
@@ -116,7 +116,7 @@ class ConfederationJpqlQueryRepositoryTest {
     private List<ConfederationSummaryRecord> map(List<Object[]> confederationsSummary) {
         return confederationsSummary.stream()
                 .map(object -> new ConfederationSummaryRecord((Long) object[0], (String) object[1], (Long) object[2]))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

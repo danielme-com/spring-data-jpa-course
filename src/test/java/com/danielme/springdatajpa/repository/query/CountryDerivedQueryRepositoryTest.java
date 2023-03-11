@@ -42,7 +42,7 @@ class CountryDerivedQueryRepositoryTest {
         List<Country> republics;
 
         try (Stream<Country> stream = countryRepository.findAsStreamByNameContainingOrderByNameAsc("Republic")) {
-            republics = stream.collect(Collectors.toList());
+            republics = stream.toList();
         }
 
         assertThat(republics)
