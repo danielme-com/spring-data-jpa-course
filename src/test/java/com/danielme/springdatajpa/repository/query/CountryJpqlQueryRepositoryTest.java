@@ -5,6 +5,8 @@ import com.danielme.springdatajpa.model.entity.Country;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
@@ -126,6 +128,14 @@ class CountryJpqlQueryRepositoryTest {
                 = countryRepository.findCountryCodeByConfederationId(UEFA_ID);
 
         assertUefaCode(uefaCountries);
+    }
+
+    @Test
+    void testFindAllSortByNameLength() {
+        JpaSort sort = JpaSort.unsafe(Sort.Direction.DESC, "LENGTH(name)");
+        List<Country> countries = countryRepository.findAll(sort);
+
+        assertThat(countries.get(0)).extracting("id").isEqualTo(USA_ID);
     }
 
 }

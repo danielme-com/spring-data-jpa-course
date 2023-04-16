@@ -2,6 +2,7 @@ package com.danielme.springdatajpa.repository.query;
 
 import com.danielme.springdatajpa.model.dto.*;
 import com.danielme.springdatajpa.model.entity.Country;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -75,5 +76,8 @@ public interface CountryJpqlQueryRepository extends Repository<Country, Long> {
 
     @Query("SELECT c.id as id, c.name as name FROM Country c WHERE c.confederation.id=:id")
     List<StringCode> findCountryCodeByConfederationId(Long id);
+
+    @Query("SELECT c FROM Country c")
+    List<Country> findAll(Sort sort);
 
 }
