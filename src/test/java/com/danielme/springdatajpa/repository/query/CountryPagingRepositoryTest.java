@@ -57,6 +57,13 @@ class CountryPagingRepositoryTest {
     }
 
     @Test
+    void testFindAllUnpaged() {
+        List<Country> allCountries = countryRepository.findAll(Pageable.unpaged());
+
+        assertThat(allCountries).hasSize(TOTAL_COUNTRIES);
+    }
+
+    @Test
     void testFindAllListNavigation() {
         Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.Direction.ASC, "name");
 
