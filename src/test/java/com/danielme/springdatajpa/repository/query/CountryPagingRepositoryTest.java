@@ -1,5 +1,6 @@
 package com.danielme.springdatajpa.repository.query;
 
+import com.danielme.springdatajpa.model.entity.Confederation;
 import com.danielme.springdatajpa.model.entity.Country;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +115,20 @@ class CountryPagingRepositoryTest {
         assertThat(countriesFirstPage.getNumber()).isZero();
         assertThat(countriesFirstPage.getNumberOfElements()).isEqualTo(PAGE_SIZE);
         assertThat(countriesFirstPage.getSize()).isEqualTo(4);
+    }
+
+    @Test
+    void testFindAllWithConfederationJoinFetch() {
+        Pageable page1Request = PageRequest.of(0, PAGE_SIZE, Sort.Direction.ASC, "name");
+        Page<Country> countriesPage1 = countryRepository.findAllWithConfederation(page1Request);
+
+        // si la consulta no usara JOIN FETCH se lanzaría la excepción LazyInitializationException porque se accede a
+        // las confederaciones fuera de un contexto de persistencia o transacción
+        assertCountriesFirstPage(countriesPage1.getContent());
+        assertThat(countriesPage1.getContent())
+                .extracting(Country::getConfederation)
+                .extracting(Confederation::getName)
+                .isNotEmpty();
     }
 
     private void assertCountriesFirstPage(List<Country> countriesFirstPage) {
