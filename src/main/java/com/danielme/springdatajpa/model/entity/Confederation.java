@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "confederations")
 @AllArgsConstructor
@@ -21,5 +23,8 @@ public class Confederation {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "confederation")
+    private List<Country> countries;
 
 }
