@@ -61,8 +61,8 @@ class CountryQBERepositoryTest {
         country.setName("republic");
         country.setCapital("city");
         ExampleMatcher matcher = ExampleMatcher.matchingAny()
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.startsWith())
-                .withMatcher("capital", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatcher::startsWith)
+                .withMatcher("capital", ExampleMatcher.GenericPropertyMatcher::contains)
                 .withIgnoreCase();
         Example<Country> countryExample = Example.of(country, matcher);
 
@@ -78,7 +78,8 @@ class CountryQBERepositoryTest {
     void testFindByAsIdName() {
         Example<Country> countryExample = buildRepublicExample();
 
-        List<IdName> republics = countryRepository.findBy(countryExample, q -> q.sortBy(Sort.by("name"))
+        List<IdName> republics = countryRepository.findBy(countryExample, queryFunction -> queryFunction
+                .sortBy(Sort.by("name"))
                 .as(IdName.class)
                 .all());
 
