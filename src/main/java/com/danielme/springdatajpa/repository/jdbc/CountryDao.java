@@ -111,7 +111,7 @@ public class CountryDao {
                     to));
         }
         if (!predicates.isEmpty()) {
-            cq.where(predicates.toArray(predicates.toArray(new Predicate[0])));
+            cq.where(predicates.toArray(new Predicate[0]));
         }
 
         return entityManager.createQuery(cq).getResultList();
