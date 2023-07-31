@@ -48,6 +48,11 @@ class CountryDaoTest {
         testFindAllRange(countryDao::findAllWithCriteria);
     }
 
+    @Test
+    void testFindAllByWithQueryDSL() {
+        testFindAllRange(countryDao::findAllWithQueryDSL);
+    }
+
     private void testFindAllRange(BiFunction<LocalDate, LocalDate, List<Country>> biFunction) {
         List<Country> countriesInRange = biFunction.apply(LocalDate.of(1950, 1, 1),
                 null);
