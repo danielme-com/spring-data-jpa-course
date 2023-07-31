@@ -1,6 +1,7 @@
 package com.danielme.springdatajpa.repository.jdbc;
 
 import com.danielme.springdatajpa.model.entity.Country;
+import com.danielme.springdatajpa.model.entity.Country_;
 import com.danielme.springdatajpa.model.entity.QCountry;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
@@ -99,7 +100,7 @@ public class CountryDao {
         CriteriaQuery<Country> cq = cb.createQuery(Country.class);
         Root<Country> countryRoot = cq.from(Country.class);
 
-        Path<LocalDate> unitedNationsAdmission = countryRoot.get("unitedNationsAdmission");
+        Path<LocalDate> unitedNationsAdmission = countryRoot.get(Country_.unitedNationsAdmission);
 
         List<Predicate> predicates = new ArrayList<>();
         if (from != null) {

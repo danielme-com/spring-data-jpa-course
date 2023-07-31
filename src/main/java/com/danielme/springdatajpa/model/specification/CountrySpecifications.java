@@ -1,6 +1,8 @@
 package com.danielme.springdatajpa.model.specification;
 
+import com.danielme.springdatajpa.model.entity.Confederation_;
 import com.danielme.springdatajpa.model.entity.Country;
+import com.danielme.springdatajpa.model.entity.Country_;
 import org.springframework.lang.Nullable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -19,21 +21,25 @@ public final class CountrySpecifications {
         if (from == null) {
             return Specification.where(null);
         }
-        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("unitedNationsAdmission"), from);
+        return (root, query, criteriaBuilder) -> criteriaBuilder
+                .greaterThanOrEqualTo(root.get(Country_.unitedNationsAdmission), from);
     }
 
     public static Specification<Country> admissionDateTo(@Nullable LocalDate to) {
         if (to == null) {
             return Specification.where(null);
         }
-        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("unitedNationsAdmission"), to);
+        return (root, query, criteriaBuilder) -> criteriaBuilder
+                .lessThanOrEqualTo(root.get(Country_.unitedNationsAdmission), to);
     }
 
     public static Specification<Country> confederationId(@Nullable Long id) {
         if (id == null) {
             return Specification.where(null);
         }
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("confederation").get("id"), id);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(
+                root.get(Country_.confederation).get(Confederation_.id),
+                id);
     }
 
 }

@@ -3,6 +3,7 @@ package com.danielme.springdatajpa.repository.programmatic;
 import com.danielme.springdatajpa.SharedCountryAssertions;
 import com.danielme.springdatajpa.model.dto.IdName;
 import com.danielme.springdatajpa.model.entity.Country;
+import com.danielme.springdatajpa.model.entity.Country_;
 import com.danielme.springdatajpa.model.specification.CountrySpecifications;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ class CountrySpecificationRepositoryTest {
     void testFindAllNoRangeSpecification() {
         Specification<Country> dateRangeSpecification = CountrySpecifications.admissionDateRange(null, null);
 
-        List<Country> countriesInRange = countryRepository.findAll(dateRangeSpecification, Sort.by("name"));
+        List<Country> countriesInRange = countryRepository.findAll(dateRangeSpecification, Sort.by(Country_.NAME));
 
         assertThat(countriesInRange).hasSize(TOTAL_COUNTRIES);
     }
@@ -37,7 +38,7 @@ class CountrySpecificationRepositoryTest {
         Specification<Country> dateRangeSpecification = CountrySpecifications
                 .admissionDateRange(null, LocalDate.of(1945, 10, 24));
 
-        List<Country> countriesInRange = countryRepository.findAll(dateRangeSpecification, Sort.by("name"));
+        List<Country> countriesInRange = countryRepository.findAll(dateRangeSpecification, Sort.by(Country_.NAME));
 
         assertThat(countriesInRange)
                 .extracting(Country::getId)
@@ -48,7 +49,7 @@ class CountrySpecificationRepositoryTest {
     void testFindAllUefaSpecification() {
         Specification<Country> uefaSpecification = CountrySpecifications.confederationId(UEFA_ID);
 
-        List<Country> countriesUefa = countryRepository.findAll(uefaSpecification, Sort.by("name"));
+        List<Country> countriesUefa = countryRepository.findAll(uefaSpecification, Sort.by(Country_.NAME));
 
         SharedCountryAssertions.assertUefaIdName(countriesUefa);
     }
@@ -57,7 +58,7 @@ class CountrySpecificationRepositoryTest {
     void testFindAllNoConfederationSpecification() {
         Specification<Country> specification = CountrySpecifications.confederationId(null);
 
-        List<Country> countries = countryRepository.findAll(specification, Sort.by("name"));
+        List<Country> countries = countryRepository.findAll(specification, Sort.by(Country_.NAME));
 
         assertThat(countries).hasSize(TOTAL_COUNTRIES);
     }
@@ -66,7 +67,7 @@ class CountrySpecificationRepositoryTest {
     void testFindAllUefaSpecificationAsIdName() {
         Specification<Country> uefaSpecification = CountrySpecifications.confederationId(UEFA_ID);
 
-        List<IdName> countriesUefa = countryRepository.findBy(uefaSpecification, q -> q.sortBy(Sort.by("name"))
+        List<IdName> countriesUefa = countryRepository.findBy(uefaSpecification, q -> q.sortBy(Sort.by(Country_.NAME))
                 .as(IdName.class)
                 .all());
 
@@ -78,7 +79,7 @@ class CountrySpecificationRepositoryTest {
         Specification<Country> uefefaBefore46Spec = CountrySpecifications.confederationId(UEFA_ID)
                 .and(CountrySpecifications.admissionDateRange(null, LocalDate.of(1945, 12, 31)));
 
-        List<Country> countriesUefa = countryRepository.findAll(uefefaBefore46Spec, Sort.by("name"));
+        List<Country> countriesUefa = countryRepository.findAll(uefefaBefore46Spec, Sort.by(Country_.NAME));
 
         assertThat(countriesUefa)
                 .extracting(Country::getId)
@@ -97,7 +98,8 @@ class CountrySpecificationRepositoryTest {
 
     @Test
     void testFindAllUefaOrConmembol() {
-        Specification<Country> uefaOrConmmebolSpec = CountrySpecifications.confederationId(UEFA_ID).or(CountrySpecifications.confederationId(CONMEBOL_ID));
+        Specification<Country> uefaOrConmmebolSpec = CountrySpecifications.confederationId(UEFA_ID)
+                .or(CountrySpecifications.confederationId(CONMEBOL_ID));
 
         List<Country> uefaOrConmmebolCountries = countryRepository.findAll(uefaOrConmmebolSpec);
 
