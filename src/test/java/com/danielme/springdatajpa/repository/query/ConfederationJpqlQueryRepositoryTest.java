@@ -2,11 +2,16 @@ package com.danielme.springdatajpa.repository.query;
 
 import com.danielme.springdatajpa.model.dto.ConfederationSummaryDTO;
 import com.danielme.springdatajpa.model.dto.ConfederationSummaryRecord;
+import com.danielme.springdatajpa.model.entity.QConfederation;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.Expressions;
 import jakarta.persistence.Tuple;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.QSort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +47,17 @@ class ConfederationJpqlQueryRepositoryTest {
         Sort sort = Sort.by("countries")
                 .descending()
                 .and(Sort.by("name"));
+
+        List<ConfederationSummaryRecord> confederationsSummary = confederationRepository.getSummaryCountryCount(sort);
+
+        assertConfederationsSummarySorting(confederationsSummary);
+    }
+
+    @Test
+    void testGetSummaryCountryCountWithQSort() {
+        OrderSpecifier orderAlias = new OrderSpecifier<>(Order.DESC, Expressions.stringPath("countries"));
+        Sort sort = QSort.by(orderAlias)
+                .and(QSort.by(QConfederation.confederation.name.desc()));
 
         List<ConfederationSummaryRecord> confederationsSummary = confederationRepository.getSummaryCountryCount(sort);
 
