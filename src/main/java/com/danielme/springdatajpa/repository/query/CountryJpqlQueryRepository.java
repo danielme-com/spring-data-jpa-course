@@ -14,7 +14,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CountryJpqlQueryRepository extends Repository<Country, Long> {
 
-    @Query("""
+    @Query(value = """
             SELECT c FROM Country c
             WHERE UPPER(c.name) LIKE UPPER(:text) OR UPPER(c.capital) LIKE UPPER(:text)
             ORDER BY c.name ASC""")
@@ -77,7 +77,8 @@ public interface CountryJpqlQueryRepository extends Repository<Country, Long> {
     @Query("SELECT c.id as id, c.name as name FROM Country c WHERE c.confederation.id=:id")
     List<StringCode> findCountryCodeByConfederationId(Long id);
 
-    @Query("SELECT c FROM Country c")
+    @Query(value = "SELECT c FROM Country c",
+            queryRewriter = ExampleQueryRewriter.class)
     List<Country> findAll(Sort sort);
 
 }
