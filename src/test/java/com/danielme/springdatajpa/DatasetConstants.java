@@ -30,6 +30,7 @@ public final class DatasetConstants {
     public static final String SPAIN_NAME = "Spain";
     public static final String NORWAY_NAME = "Norway";
     public static final String NETHERLANDS_NAME = "The Netherlands";
+    public static final String KOREA_NAME = "Republic of Korea";
 
     public static final String WASHINGTON = "Washington, D.C.";
 

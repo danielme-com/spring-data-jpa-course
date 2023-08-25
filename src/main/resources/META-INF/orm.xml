@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+<entity-mappings version="3.1" xmlns="https://jakarta.ee/xml/ns/persistence/orm"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
-        https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd">
+        https://jakarta.ee/xml/ns/persistence/orm/orm_3_1.xsd">
 
     <named-query name="Country.findByCapital">
         <query>select c from Country c
@@ -10,5 +10,22 @@
             order by c.capital
         </query>
     </named-query>
+
+    <sql-result-set-mapping name="IdNameRecordMapping">
+        <constructor-result target-class="com.danielme.springdatajpa.model.dto.IdNameRecord">
+            <column name="id"/>
+            <column name="name"/>
+        </constructor-result>
+    </sql-result-set-mapping>
+
+    <named-native-query  name="Country.findByMinPopulationAsRecord"
+                         result-set-mapping="IdNameRecordMapping">
+        <query>SELECT name, id FROM countries WHERE population >:minPopulation ORDER BY population</query>
+    </named-native-query>
+
+    <named-native-query  name="Country.findByMinPopulation"
+                         result-class="com.danielme.springdatajpa.model.entity.Country">
+        <query>SELECT * FROM countries WHERE population >:minPopulation ORDER BY population</query>
+    </named-native-query>
 
 </entity-mappings>
