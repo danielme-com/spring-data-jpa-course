@@ -27,6 +27,10 @@ import java.time.LocalDate;
                 select c from Country c
                 where c.capital like concat('%', :capital, '%')
                 order by c.capital""")
+@NamedQuery(name = "Country.findByCapital.count",
+        query = """
+                select count(c) from Country c
+                where c.capital like concat('%', :capital, '%') """)
 @NamedNativeQuery(name = "Country.findByMinPopulation",
         resultClass = Country.class,
         query =  """

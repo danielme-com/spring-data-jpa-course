@@ -5,6 +5,9 @@ import com.danielme.springdatajpa.model.entity.Country;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.context.jdbc.Sql;
@@ -65,6 +68,18 @@ class CountryJpqlQueryRepositoryTest {
         assertThat(countries)
                 .extracting(Country::getId)
                 .containsExactly(GUATEMALA_ID, MEXICO_ID, VATICAN_ID);
+    }
+
+    @Test
+    void testFindByCapitalNamedQueryWithPagination() {
+        Pageable pageable = PageRequest.of(0, 1, Sort.Direction.ASC, "name");
+
+        Page<Country> page1 = countryRepository.findByCapitalUsingNameQueryWithPagination(CITY_STRING, pageable);
+
+        assertThat(page1.getTotalElements()).isEqualTo(3);
+        assertThat(page1.getContent())
+                .extracting(Country::getId)
+                .containsExactly(GUATEMALA_ID);
     }
 
     @Sql(value = {"/reset.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)

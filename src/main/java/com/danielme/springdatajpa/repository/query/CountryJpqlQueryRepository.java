@@ -2,6 +2,8 @@ package com.danielme.springdatajpa.repository.query;
 
 import com.danielme.springdatajpa.model.dto.*;
 import com.danielme.springdatajpa.model.entity.Country;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,6 +39,9 @@ public interface CountryJpqlQueryRepository extends Repository<Country, Long> {
 
     @Query(name = "Country.findByCapital")
     List<Country> findByCapitalUsingNameQuery(String capital);
+
+    @Query(name = "Country.findByCapital")
+    Page<Country> findByCapitalUsingNameQueryWithPagination(String capital, Pageable pageable);
 
     @Transactional
     @Modifying
