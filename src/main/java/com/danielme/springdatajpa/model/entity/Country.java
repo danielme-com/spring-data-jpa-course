@@ -47,6 +47,17 @@ import java.time.LocalDate;
         query =  """
             SELECT COUNT(*) FROM countries
             WHERE united_nations_admission > :minDateAdmission""")
+@NamedStoredProcedureQuery(name = "Country.countCountriesByConfederationId",
+        procedureName = "count_countries_by_confederation_id",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN,  name = "param_conf_id", type = Long.class),
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "countries_count", type = Integer.class) })
+@NamedStoredProcedureQuery(name = "Country.countCountriesAndPopulationByConfId",
+        procedureName = "count_countries_and_population_by_confederation_id",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN,  name = "param_conf_id", type = Long.class),
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "countries_count", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "population", type = Integer.class) })
 @Entity
 @Table(name = "countries")
 @Getter
