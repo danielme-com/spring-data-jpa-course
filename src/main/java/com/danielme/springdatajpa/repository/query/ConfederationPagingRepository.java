@@ -26,8 +26,8 @@ public interface ConfederationPagingRepository extends Repository<Confederation,
 
     default Page<Confederation> findAllWithCountryPagingTwoQueries(Pageable pageable) {
         Page<Long> idsPage = findConfederationsWithCountry(pageable);
-        List<Confederation> confederationsPage1 = findAllConfederation(idsPage.getContent(), idsPage.getSort());
-        return new PageImpl<>(confederationsPage1, pageable, idsPage.getTotalElements());
+        List<Confederation> confederationsPage = findAllConfederation(idsPage.getContent(), idsPage.getSort());
+        return new PageImpl<>(confederationsPage, pageable, idsPage.getTotalElements());
     }
 
 
