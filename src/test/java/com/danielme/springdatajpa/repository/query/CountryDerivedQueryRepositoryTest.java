@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -241,9 +242,18 @@ class CountryDerivedQueryRepositoryTest {
 
     @Test
     void testFindTopOrderByPopulationAsc() {
-        List<Country> lessPopulatedCountries = countryRepository.findTop3ByOrderByPopulationAsc();
+        List<Country> less3PopulatedCountries = countryRepository.findTop3ByOrderByPopulationAsc();
 
-        assertThat(lessPopulatedCountries)
+        assertThat(less3PopulatedCountries)
+                .extracting(Country::getId)
+                .containsExactly(VATICAN_ID, COSTA_RICA_ID, NORWAY_ID);
+    }
+
+    @Test
+    void testFindLimitOrderByPopulationAsc() {
+        List<Country> less3PopulatedCountries = countryRepository.findByOrderByPopulationAsc(Limit.of(3));
+
+        assertThat(less3PopulatedCountries)
                 .extracting(Country::getId)
                 .containsExactly(VATICAN_ID, COSTA_RICA_ID, NORWAY_ID);
     }

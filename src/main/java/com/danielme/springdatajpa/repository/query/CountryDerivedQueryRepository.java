@@ -4,6 +4,7 @@ import com.danielme.springdatajpa.model.dto.IdName;
 import com.danielme.springdatajpa.model.dto.IdNameRecord;
 import com.danielme.springdatajpa.model.dto.StringCode;
 import com.danielme.springdatajpa.model.entity.Country;
+import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
@@ -42,6 +43,8 @@ public interface CountryDerivedQueryRepository extends Repository<Country, Long>
     List<Country> findByNameContainingOrCapitalContaining(String name, String capital);
     List<Country> findByOrderByUnitedNationsAdmissionAscNameAsc();
     List<Country> findTop3ByOrderByPopulationAsc();
+
+    List<Country> findByOrderByPopulationAsc(Limit limit);
     boolean existsByCapitalIgnoringCase(String capital);
     long countByConfederationId(Long id);
     List<Country> findTop3By(Sort sort);
