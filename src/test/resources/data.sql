@@ -7,7 +7,7 @@ VALUES (3, 'CONMEBOL');
 INSERT INTO confederations (id, name)
 VALUES (4, 'AFC');
 
-INSERT INTO countries (id, name, capital, population, ocde, united_nations_admission, confederation_id)
+INSERT INTO countries (id, name, capital, population, oecd, united_nations_admission, confederation_id)
 VALUES (1, 'Norway', 'Oslo', 5136700, true, '1945-11-27', 1),
        (2, 'Spain', 'Madrid', 47265321, true, '1955-12-14', 1),
        (3, 'Mexico', 'Mexico City', 115296767, true, '1945-11-7', 2),

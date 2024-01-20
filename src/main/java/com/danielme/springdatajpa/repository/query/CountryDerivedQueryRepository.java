@@ -36,7 +36,7 @@ public interface CountryDerivedQueryRepository extends Repository<Country, Long>
     List<Country> findByNameStartingWith(String name);
     List<Country> findByCapitalEndingWith(String capital);
     List<Country> findByConfederationIdIn(Collection<Long> ids);
-    List<Country> findByOcdeFalse();
+    List<Country> findByOecdFalse();
     Optional<Country> findByCapitalIgnoreCase(String capital);
     List<Country> findByNameContainingIgnoreCase(String name);
     List<Country> findByNameContainingOrCapitalContaining(String name, String capital);

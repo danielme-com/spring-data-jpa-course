@@ -79,7 +79,7 @@ public class Country {
     @Column(nullable = false, unique = true)
     private String capital;
 
-    private Boolean ocde;
+    private Boolean oecd;
 
     @Column(name = "united_nations_admission")
     private LocalDate unitedNationsAdmission;

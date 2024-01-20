@@ -187,10 +187,10 @@ class CountryDerivedQueryRepositoryTest {
     }
 
     @Test
-    void testFindByOcdeFalse() {
-        List<Country> countriesNotOCDE = countryRepository.findByOcdeFalse();
+    void testFindByOecdFalse() {
+        List<Country> countriesNotOecd = countryRepository.findByOecdFalse();
 
-        assertThat(countriesNotOCDE)
+        assertThat(countriesNotOecd)
                 .extracting(Country::getId)
                 .containsExactlyInAnyOrder(DOMINICAN_ID, PERU_ID, GUATEMALA_ID, VATICAN_ID);
     }

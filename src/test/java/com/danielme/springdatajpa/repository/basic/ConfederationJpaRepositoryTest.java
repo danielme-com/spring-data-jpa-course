@@ -27,7 +27,7 @@ class ConfederationJpaRepositoryTest {
         Country country = new Country();
         country.setName("Cuba");
         country.setPopulation(11113215);
-        country.setOcde(false);
+        country.setOecd(false);
         country.setCapital("Havana City");
         country.setUnitedNationsAdmission(LocalDate.of(1945, 10, 24));
         Confederation concacaf = confederationRepository.getReferenceById(CONCACAF_ID);

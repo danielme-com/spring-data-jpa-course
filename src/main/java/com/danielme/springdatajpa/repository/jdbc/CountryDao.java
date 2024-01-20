@@ -58,7 +58,7 @@ public class CountryDao {
                 resultSet.getString("name"),
                 resultSet.getInt("population"),
                 resultSet.getString("capital"),
-                resultSet.getBoolean("ocde"),
+                resultSet.getBoolean("oecd"),
                 mapToLocalDate(resultSet.getDate("united_nations_admission")),
                 null);
     }
