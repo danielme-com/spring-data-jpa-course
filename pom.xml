@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.2</version>
         <relativePath/>
     </parent>
 
@@ -51,15 +51,16 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>${hibernate.version}</version>
+            <version>6.2.20.Final</version><!-- Spring Boot 3.2 Hibernate version doesn't work-->
             <scope>compile</scope>
         </dependency>
 
+        <!-- required by jpamodelgen-->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jakarta-xml-bind.version}</version>
             <scope>compile</scope>
-            <version>4.0.0</version>
         </dependency>
 
         <dependency>
