@@ -13,4 +13,6 @@ public interface ConfederationCustomCrudRepository extends Repository<Confederat
 
     long count();
 
+    Confederation getReferenceById(Long id);
+
 }
