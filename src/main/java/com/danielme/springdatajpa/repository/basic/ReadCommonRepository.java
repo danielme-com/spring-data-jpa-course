@@ -14,4 +14,6 @@ public interface ReadCommonRepository<T, ID> extends Repository<T, ID> {
 
     long count();
 
+    T getReferenceById(ID id);
+
 }
