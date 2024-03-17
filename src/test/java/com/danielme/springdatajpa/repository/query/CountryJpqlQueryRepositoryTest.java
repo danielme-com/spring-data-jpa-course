@@ -18,6 +18,7 @@ import static com.danielme.springdatajpa.DatasetConstants.*;
 import static com.danielme.springdatajpa.SharedCountryAssertions.assertUefaCode;
 import static com.danielme.springdatajpa.SharedCountryAssertions.assertUefaIdName;
 import static com.danielme.springdatajpa.TestConstants.CITY_STRING;
+import static com.danielme.springdatajpa.TestConstants.REPUBLIC_STRING;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -151,6 +152,15 @@ class CountryJpqlQueryRepositoryTest {
         List<Country> countries = countryRepository.findAll(sort);
 
         assertThat(countries.get(0)).extracting("id").isEqualTo(USA_ID);
+    }
+
+    @Test
+    void testFindByNameWithGenericRepository() {
+        List<Country> countries = countryRepository.findByNameLike(REPUBLIC_STRING);
+
+        assertThat(countries)
+                .extracting(Country::getId)
+                .containsExactly(KOREA_ID, DOMINICAN_ID);
     }
 
 }

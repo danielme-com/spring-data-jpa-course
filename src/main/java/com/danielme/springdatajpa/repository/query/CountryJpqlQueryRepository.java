@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface CountryJpqlQueryRepository extends Repository<Country, Long> {
+public interface CountryJpqlQueryRepository extends JpqlGenericRepository<Country, Long> {
 
     @Query(value = """
             SELECT c FROM Country c
