@@ -2,6 +2,7 @@ package com.danielme.springdatajpa.repository.query;
 
 import com.danielme.springdatajpa.model.dto.ConfederationSummaryDTO;
 import com.danielme.springdatajpa.model.dto.ConfederationSummaryRecord;
+import com.danielme.springdatajpa.model.entity.Confederation;
 import com.danielme.springdatajpa.model.entity.QConfederation;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.QSort;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.danielme.springdatajpa.DatasetConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,6 +51,12 @@ class ConfederationJpqlQueryRepositoryTest {
         List<ConfederationSummaryRecord> confederationsSummary = confederationRepository.getSummaryCountryCount(sort);
 
         assertConfederationsSummarySorting(confederationsSummary);
+    }
+
+    @Test
+    void testIsNotEmpty() {
+        List<Confederation> byCountriesIsNotEmpty = confederationRepository.findByCountriesIsEmpty();
+        assertThat(byCountriesIsNotEmpty).isEmpty();
     }
 
     @Test

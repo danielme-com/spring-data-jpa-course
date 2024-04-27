@@ -39,4 +39,6 @@ public interface ConfederationJpqlQueryRepository extends Repository<Confederati
             GROUP BY ct.confederation.id, c.name""")
     List<ConfederationSummaryRecord> getSummaryCountryCount(Sort sort);
 
+    List<Confederation> findByCountriesIsEmpty();
+
 }
